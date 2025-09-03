@@ -1,0 +1,9 @@
+{
+  "name": "atpub-js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

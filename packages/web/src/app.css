@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+body {
+  font-family: InterVariable, system-ui, sans-serif, ui-sans-serif;
+  @apply bg-[#0a0a0a] text-white;
+}
+
+a {
+  @apply hover:underline;
+}
+
+input {
+  @apply border border-white/20 rounded px-2 py-1.5;
+}

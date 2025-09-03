@@ -1,0 +1,30 @@
+{
+  "name": "@atpub/services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/services.js",
+  "exports": {
+    ".": {
+      "import": "./dist/services.js",
+      "require": "./dist/services.umd.cjs"
+    }
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "glob": "^11.0.3"
+  },
+  "devDependencies": {
+    "vite": "^7.0.4"
+  }
+}
