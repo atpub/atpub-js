@@ -1,5 +1,5 @@
 <script>
-    import { serviceProviderList } from '$lib/atpub.js'
+    import { serviceProviderList } from '@atpub/api'
     import defaultServiceIcon from '../../../static/default-service-icon.svg';
 
     let sorted = Object.entries(serviceProviderList()).sort()

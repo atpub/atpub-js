@@ -7,7 +7,7 @@
     let teams = $derived(data.teams)
 </script>
 
-<div class="bg-white/10 px-4 py-6 rounded-lg md:flex gap-6 flex-wrap md:flex-nowrap">
+<div class="bg-white/10 px-4 py-6 border border-white/20 rounded-xs md:flex gap-6 flex-wrap md:flex-nowrap">
     <div class="md:w-1/2 text-center {profile === null ? 'animate-pulse' : ''}">
         <img src={profile?.avatar} alt={profile?.displayName} class="w-32 aspect-square rounded-full inline-block border-1 border-white/15 bg-white/15" />
         <h1 class="mt-2 text-3xl">{profile?.displayName}</h1>

@@ -26,7 +26,6 @@ export class Service {
 
     icon() {
         if (this.config.icon) {
-            console.log(this.config.icon)
             return this.config.icon
         }
         return null

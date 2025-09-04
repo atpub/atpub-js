@@ -15,7 +15,7 @@ class W {
     return u.length > 48 ? u.substring(0, 10) + "…" + u.substring(t.length - 5) : u;
   }
   icon() {
-    return this.config.icon ? (console.log(this.config.icon), this.config.icon) : null;
+    return this.config.icon ? this.config.icon : null;
   }
   async verifyProof(t, u, s) {
     const n = { proofMethod: s.method }, r = (E) => Object.assign(n, { ok: E }), d = (this.config.verificationMethods || [])[s.method];

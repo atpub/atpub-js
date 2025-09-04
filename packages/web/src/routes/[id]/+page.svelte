@@ -1,5 +1,5 @@
 <script>
-    import { verifyClaim, AtpubAgent } from "$lib/atpub.js";
+    import { verifyClaim, AtpubAgent } from "@atpub/api";
     import Profile from "$lib/components/Profile.svelte";
 
     let { data } = $props()
@@ -47,5 +47,11 @@
     })
 
 </script>
+
+<svelte:head>
+    {#if profile}
+        <title>@{profile.handle} · atpub.me</title>
+    {/if}
+</svelte:head>
 
 <Profile data={{ profile, claims, teams }} />
