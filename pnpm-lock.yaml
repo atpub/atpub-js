@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  packages/api:
+  packages/client:
     dependencies:
       '@atproto/api':
         specifier: ^0.16.6
@@ -35,9 +35,9 @@ importers:
       '@atproto/api':
         specifier: ^0.16.6
         version: 0.16.7
-      '@atpub/api':
+      '@atpub/client':
         specifier: workspace:^
-        version: link:../api
+        version: link:../client
       '@atpub/services':
         specifier: workspace:^
         version: link:../services

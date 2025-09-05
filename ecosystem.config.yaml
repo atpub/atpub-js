@@ -1,0 +1,8 @@
+apps:
+  - name: atpub-api
+    script: ./packages/api/index.js
+
+  - name: atpub-web
+    script: ./packages/web/build/index.js
+    env:
+      PORT: 4000

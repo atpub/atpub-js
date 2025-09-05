@@ -1,5 +1,5 @@
 <script>
-    import { serviceProviders } from '@atpub/api'
+    import { serviceProviders } from '@atpub/client'
     import defaultServiceIcon from '../../../static/default-service-icon.svg'
 
     let { item } = $props()    
@@ -13,7 +13,7 @@
 
 </script>
 
-<div class="w-full leading-8  {expanded ? 'bg-white/10 mt-1' : 'hover:bg-white/10'} rounded cursor-pointer" onclick={() => expanded = !expanded} aria-label="Claim">
+<div class="w-full leading-7 {expanded ? 'bg-white/10 border border-transparent' : 'border border-transparent hover:bg-white/10 hover:border-white/20'} rounded-xs cursor-pointer" onclick={() => expanded = !expanded} aria-label="Claim">
 {#if platform}
     <div class="flex gap-2.5 items-center px-2">
         <div class=""><img src={platform.icon() ?? defaultServiceIcon} class="w-4.5 aspect-square invert opacity-50 grayscale" /></div>

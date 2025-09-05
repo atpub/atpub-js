@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"@atpub/services": "workspace:^",
-		"@atpub/api": "workspace:^",
+		"@atpub/client": "workspace:^",
 		"@atproto/api": "^0.16.6",
 		"@did-plc/lib": "^0.0.4"
 	}

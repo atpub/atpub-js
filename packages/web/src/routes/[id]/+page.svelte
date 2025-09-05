@@ -1,5 +1,5 @@
 <script>
-    import { verifyClaim, AtpubAgent } from "@atpub/api";
+    import { verifyClaim, AtpubAgent } from "@atpub/client";
     import Profile from "$lib/components/Profile.svelte";
 
     let { data } = $props()

@@ -1,18 +1,14 @@
 {
   "name": "@atpub/api",
-  "private": true,
   "version": "0.1.0",
-  "description": "",
+  "private": "true",
   "type": "module",
-  "main": "lib/atpub.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@atproto/api": "^0.16.6",
-    "@atpub/services": "workspace:^"
-  }
+  "license": "ISC"
 }

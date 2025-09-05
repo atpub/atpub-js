@@ -18,14 +18,14 @@
     </div>
     <div class="md:w-1/2 mt-6 md:mt-0">
         {#if profile}
-            {#if !teams || teams.length !== 0}
+            {#if teams !== null && teams.length > 0}
                 <div class="opacity-50 uppercase text-sm mb-1.5 flex gap-2">
                     Teams
                     <svg class="animate-spin {teams === null ? 'block' : 'hidden'}" style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path></svg>
                 </div>
                 <div class="grid grid-cols-1 gap-2 mb-4">
                     {#each teams as team}
-                        <div class="flex items-center gap-2.5 hover:bg-white/10 rounded py-1 px-1.5">
+                        <div class="flex items-center gap-2.5 hover:bg-white/10 border border-transparent hover:border-white/20 rounded-xs py-1 px-1.5 cursor-pointer">
                             <div>
                                 <a href="/{team.profile.handle}"><img src={team.profile.avatar} class="w-12 aspect-square rounded-full inline-block border-1 border-white/15" /></a>
                             </div>
@@ -54,7 +54,7 @@
 
             <div class="opacity-50 uppercase text-sm mb-1.5 flex gap-2">Identity claims<div><svg class="animate-spin {claims === null ? 'block' : 'hidden'}" style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path></svg></div></div>
             {#if claims !== null}
-                <div class="">
+                <div class="grid grid-cols-1 gap-0.5">
                     {#if claims.length === 0}
                         No claims
                     {:else}

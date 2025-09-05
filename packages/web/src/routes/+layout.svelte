@@ -12,7 +12,7 @@
 
 <div class="w-full">
 	<div class="mx-auto max-w-4xl pt-6 px-3 lg:px-0">
-		<div class="text-2xl title font-mono"><a href="/">ATpub.me</a></div>
+		<div class="text-2xl title font-mono"><a href="/">ATpub.me</a> / <input type="text" class="border border-white/20 text-lg w-92 ml-1" placeholder="tree.fail" /></div>
 
 		<div class="mt-4">
 			{@render children?.()}
