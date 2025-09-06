@@ -1,5 +1,5 @@
 {
-  "name": "@atpub/api",
+  "name": "@atpub/server",
   "version": "0.1.0",
   "private": "true",
   "type": "module",
@@ -10,5 +10,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@atpub/client": "workspace:^",
+    "@hono/node-server": "^1.19.1",
+    "hono": "^4.9.6"
+  }
 }

@@ -5,5 +5,10 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "pnpm": {
+	  "onlyBuiltDependencies": [
+		  "esbuild"
+	  ]
   }
 }

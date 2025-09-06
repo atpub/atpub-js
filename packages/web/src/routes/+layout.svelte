@@ -1,7 +1,29 @@
-<script lang="ts">
+<script>
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import { browser } from '$app/environment';
 	
+	import { BrowserOAuthClient } from '@atproto/oauth-client-browser'
+	import clientMetadata from '$lib/client-metadata.json'
+
+	let client;
+	async function initOAuth() {
+		client = new BrowserOAuthClient({
+			clientMetadata,
+			handleResolver: 'https://pp0.co'
+		})
+		const res = await client.init()
+		console.log('session=',res)
+		await client.signIn('tree.fail', {
+			prompt: 'none'
+		})
+		console.log('OAuth init done')
+	}
+
+	if (browser) {
+		initOAuth()
+	}
+
 	let { children } = $props();
 </script>
 

@@ -1,0 +1,15 @@
+{
+  "client_id": "https://atpub.me/client-metadata.json",
+  "client_name": "ATpub Web",
+  "client_uri": "https://atpub.me",
+  "logo_uri": "https://atpub.me/logo.png",
+  "tos_uri": "https://atpub.me/tos",
+  "policy_uri": "https://atpub.me/policy",
+  "redirect_uris": ["https://atpub.me/callback"],
+  "scope": "atproto",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "application_type": "web",
+  "dpop_bound_access_tokens": true
+}
