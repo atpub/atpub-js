@@ -15,13 +15,13 @@
 		const res = await client.init()
 		console.log('session=',res)
 		await client.signIn('tree.fail', {
-			prompt: 'none'
+			//prompt: 'none'
 		})
 		console.log('OAuth init done')
 	}
 
 	if (browser) {
-		initOAuth()
+		//initOAuth()
 	}
 
 	let { children } = $props();
@@ -34,7 +34,10 @@
 
 <div class="w-full">
 	<div class="mx-auto max-w-4xl pt-6 px-3 lg:px-0">
-		<div class="text-2xl title font-mono"><a href="/">ATpub.me</a> / <input type="text" class="border border-white/20 text-lg w-92 ml-1" placeholder="tree.fail" /></div>
+		<div class="flex">
+			<div class="grow text-2xl title font-mono"><a href="/">ATpub.me</a> / <input type="text" class="border border-white/20 text-lg w-92 ml-1" placeholder="tree.fail" /></div>
+			<div><a href="" onclick={() => initOAuth()}>Login</a></div>
+		</div>
 
 		<div class="mt-4">
 			{@render children?.()}
