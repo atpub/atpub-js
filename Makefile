@@ -10,3 +10,7 @@ help: ## Print info about all commands
 .PHONY: build
 build: ## Compile all modules
 	pnpm build
+
+.PHONY: restart
+restart:
+	pm2 restart ecosystem.config.yaml
