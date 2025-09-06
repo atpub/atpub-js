@@ -1,6 +1,9 @@
 {
   "name": "atpub-js",
   "private": true,
+  "scripts": {
+    "build": "pnpm run --sort --recursive --stream '/^(build|build:.+)$/'"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
