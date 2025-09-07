@@ -27,8 +27,7 @@
 	"dependencies": {
 		"@atproto/api": "^0.16.6",
 		"@atproto/oauth-client-browser": "^0.3.31",
-		"@atpub/client": "workspace:^",
-		"@atpub/services": "workspace:^",
-		"@did-plc/lib": "^0.0.4"
+		"@did-plc/lib": "^0.0.4",
+		"@atpub/client": "workspace:^"
 	}
 }

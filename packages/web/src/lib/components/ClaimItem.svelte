@@ -1,12 +1,13 @@
 <script>
-    import { serviceProviders } from '@atpub/client'
+    import { serviceProviders, getService } from '@atpub/client'
     import defaultServiceIcon from '../../../static/default-service-icon.svg'
 
     let { item } = $props()    
     let claim = $derived(item.value)
 
-    let platform = $derived(serviceProviders[claim.platform])
-    let identityUrl = $derived(platform?.identityUrl(claim.identifier))
+    let service = $derived(getService(claim.service))
+    //let service = $derived(serviceProviders[claim.service])
+    let identityUrl = $derived(service?.identityUrl(claim.identifier))
     let status = $derived(item.status || { ok: 'waiting'} )
 
     let expanded = $state(false)
@@ -14,14 +15,17 @@
 </script>
 
 <div class="w-full leading-7 {expanded ? 'bg-white/10 border border-transparent' : 'border border-transparent hover:bg-white/10 hover:border-white/20'} rounded-xs cursor-pointer" onclick={() => expanded = !expanded} aria-label="Claim">
-{#if platform}
+{#if service}
     <div class="flex gap-2.5 items-center px-2">
-        <div class=""><img src={platform.icon() ?? defaultServiceIcon} class="w-4.5 aspect-square invert opacity-50 grayscale" /></div>
+        <div class=""><img src={service.icon() ?? defaultServiceIcon} class="w-4.5 aspect-square invert opacity-50 grayscale" /></div>
         <div class="grow">
-            <a href={identityUrl} target="_blank" class="{status.ok === true ? 'font-semibold text-[#3f87ff]' : (status.ok === false ? 'text-white/75 line-through' : ' text-white/75')} hover:underline" title={claim.identifier}>{platform.identifierRender(claim.identifier)}</a> 
-            <span class="opacity-50">[{platform.name()}]</span>
+            <a href={identityUrl} target="_blank" class="{status.ok === true ? 'font-semibold text-[#3f87ff]' : (status.ok === false ? 'text-white/75 line-through' : ' text-white/75')} hover:underline" title={claim.identifier}>{service.identifierRender(claim.identifier)}</a> 
+            <span class="opacity-50">[{#if service.custom}~{/if}{service.name()}]</span>
             {#if !item.uri}
                 <span class="opacity-75">✨</span>
+            {/if}
+            {#if service.custom}
+                <span class="opacity-75">⚠︎</span>
             {/if}
         </div>
         <div class="opacity-75">
@@ -35,7 +39,7 @@
             <div>Profile link: <a href={identityUrl} target="_blank" class="hover:underline text-[#3f87ff] wrap-anywhere" title={identityUrl}>{identityUrl}</a></div>
             {#if item.status.proofMethod}
                 <hr class="my-2 opacity-25" />
-                <div>Proof method: <span class="font-bold font-mono bg-black/20 text-xs py-1 px-1.5 rounded-sm">{claim.platform}:{item.status.proofMethod}</span></div>
+                <div>Proof method: <span class="font-bold font-mono bg-black/20 text-xs py-1 px-1.5 rounded-sm">{claim.service}:{item.status.proofMethod}</span></div>
                 <div>Proof link: <a href={item.status.proofUrl} target="_blank" class="text-[#3f87ff] wrap-anywhere">{item.status.proofUrl}</a></div>
             {/if}
             {#if item.uri}
@@ -45,6 +49,6 @@
         </div>
     {/if}
 {:else}
-    <div class="italic opacity-50">unknown claim: {claim.identifier} [{claim.platform}]</div>
+    <div class="italic opacity-50">unknown claim: {claim.identifier} [{claim.service}]</div>
 {/if}
 </div>

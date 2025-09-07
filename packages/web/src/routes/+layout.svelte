@@ -1,27 +1,31 @@
 <script>
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.png';
 	import { browser } from '$app/environment';
 	
 	import { BrowserOAuthClient } from '@atproto/oauth-client-browser'
 	import clientMetadata from '$lib/client-metadata.json'
 
 	let client;
-	async function initOAuth() {
+	async function login() {
+		
+		await client.signIn('tree.fail', {
+			//prompt: 'none'
+		})
+		console.log('OAuth init done')
+	}
+	async function OAuthInit () {
 		client = new BrowserOAuthClient({
 			clientMetadata,
 			handleResolver: 'https://pp0.co'
 		})
 		const res = await client.init()
 		console.log('session=',res)
-		await client.signIn('tree.fail', {
-			//prompt: 'none'
-		})
-		console.log('OAuth init done')
+		return client
 	}
 
 	if (browser) {
-		//initOAuth()
+		//OAuthInit()
 	}
 
 	let { children } = $props();
@@ -34,9 +38,10 @@
 
 <div class="w-full">
 	<div class="mx-auto max-w-4xl pt-6 px-3 lg:px-0">
-		<div class="flex">
-			<div class="grow text-2xl title font-mono"><a href="/">ATpub.me</a> / <input type="text" class="border border-white/20 text-lg w-92 ml-1" placeholder="tree.fail" /></div>
-			<div><a href="" onclick={() => initOAuth()}>Login</a></div>
+		<div class="flex items-center h-12">
+			<div class="mr-2"><a href="/"><img src={favicon} class="inline-block h-9 invert" title="ATpub" /></a></div>
+			<div class="grow text-2xl title font-mono"><input type="text" class="border text-lg w-92 ml-1 bg-white/5" placeholder="tree.fail" /></div>
+			<div><a href="" onclick={() => login()}>Login</a></div>
 		</div>
 
 		<div class="mt-4">

@@ -1,10 +1,11 @@
-import { readFileSync } from 'fs'
+import provers from './provers'
 
 export class Service {
-    constructor(id, config) {
+    constructor(id, config, custom = false) {
         this.id = id
+        this.custom = custom
         this.config = Object.assign({
-            urlPattern: 'https://{identifier}'
+            profileUrl: 'https://{identifier}'
         }, config)
     }
 
@@ -13,7 +14,7 @@ export class Service {
     }
 
     identityUrl(identifier) {
-        return this.config.urlPattern.replace('{identifier}', identifier)
+        return this.config.profileUrl.replace('{identifier}', identifier)
     }
 
     identifierRender(str) {
@@ -31,9 +32,23 @@ export class Service {
         return null
     }
 
-    async verifyProof(did, claim, proof) {
-        const meta = { proofMethod: proof.method }
-        const finish = (ok) => (Object.assign(meta, { ok }))
+    async verifyProof(did, claim, input) {
+        const finish = (ok) => ({ ok, proofMethod: input.method })
+
+        const params = this.config.verificationMethods[input.method]
+        if (!params) {
+            return finish(false)
+        }
+        const prover = provers[params.type]
+        if (!prover) {
+            return finish(false)
+        }
+
+        const result = await prover({ did, claim, input, params})
+        return finish(result)
+
+        /*const meta = { proofMethod: proof.method }
+        console.log(meta)
 
         const methods = this.config.verificationMethods || []
         const method = methods[proof.method]
@@ -48,6 +63,6 @@ export class Service {
             return finish(res)
         } else {
             return finish(false)
-        }
+        }*/
     }
 }

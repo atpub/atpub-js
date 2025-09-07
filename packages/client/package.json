@@ -13,6 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@atproto/api": "^0.16.6",
-    "@atpub/services": "workspace:^"
+    "cheerio": "^1.1.2",
+    "jsonpath-js": "^0.2.0",
+    "lodash": "^4.17.21"
   }
 }
