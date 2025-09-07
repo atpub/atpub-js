@@ -73,6 +73,7 @@
 			<div class="grow">
 				<!--a href="/">home</a--> 
 				<a href="/services">services</a> 
+				• <a href="/playground">playground</a> 
 				• <a href="https://docs.atpub.me">docs</a> 
 				• <a href="https://github.com/atpub">source code</a> 
 				• <a href="/atpub.me">@atpub.me</a> 

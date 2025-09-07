@@ -59,7 +59,7 @@
                         No claims
                     {:else}
                         {#each claims as item}
-                            <div><ClaimItem {item} /></div>
+                            <div><ClaimItem {item} {profile} /></div>
                         {/each}
                     {/if}
                 </div>

@@ -9,6 +9,7 @@ export default async function ({ did, params, claim, input }) {
     if (params.needProxy) {
         proxyUrl = `https://keyoxide.org/api/3/get/http?url=${encodeURI(url)}&format=text`
     }
+    const finish = (ok) => ({ ok, url, proxyUrl })
 
     if (params.format === 'html') {
         const html = await (await fetch(proxyUrl)).text()
@@ -18,9 +19,9 @@ export default async function ({ did, params, claim, input }) {
             const el = $(params.selector)
 
             if (params.attr) {
-                return el.attr(params.attr)?.includes(did)
+                return finish(el.attr(params.attr)?.includes(did))
             } else {
-                return el.text()?.includes(did)
+                return finish(el.text()?.includes(did))
             }
         }
     }
@@ -29,12 +30,12 @@ export default async function ({ did, params, claim, input }) {
 
         if (params.path) {
             const res = (new JSONPathJS(params.path)).find(json)
-            return Boolean(res.find(x => x.includes(did)))
+            return finish(Boolean(res.find(x => x.includes(did))))
         }
     } else {
         const text = await (await fetch(proxyUrl)).text()
-        return text.includes(did)
+        return finish(text.includes(did))
     }
 
-    return false
+    return finish(false)
 }

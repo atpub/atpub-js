@@ -3,7 +3,7 @@
 
     import defaultServiceIcon from '../../../static/default-service-icon.svg'
 
-    let { item } = $props()    
+    let { item, profile } = $props()    
     let claim = $derived(item.value)
 
     let service = $derived(client.getService(claim.service))
@@ -35,17 +35,20 @@
         </div>
     </div>
     {#if expanded}
-        <div class="p-3 mb-1 text-sm bg-white/5">
+        <div class="p-3 mb-1 text-sm bg-white/5 grid grid-cols-1 gap-1">
             <div>Profile link: <a href={identityUrl} target="_blank" class="hover:underline text-[#3f87ff] wrap-anywhere" title={identityUrl}>{identityUrl}</a></div>
             {#if item.status.proofMethod}
                 <hr class="my-2 opacity-25" />
-                <div>Proof method: <span class="font-bold font-mono bg-black/20 text-xs py-1 px-1.5 rounded-sm">{claim.service}:{item.status.proofMethod}</span></div>
-                <div>Proof link: <a href={item.status.proofUrl} target="_blank" class="text-[#3f87ff] wrap-anywhere">{item.status.proofUrl}</a></div>
+                <div>Service: <span class="font-bold font-mono bg-black/20 text-xs py-1 px-1.5 rounded-sm">{claim.service}</span></div>
+                <div>Proof method: <span class="font-bold font-mono bg-black/20 text-xs py-1 px-1.5 rounded-sm">{item.status.proofMethod}</span></div>
+                <div>Proof link: <a href={item.status.url} target="_blank" class="text-[#3f87ff] wrap-anywhere">{item.status.url}</a></div>
             {/if}
             {#if item.uri}
                 <hr class="my-2 opacity-25" />
                 <div>Claim record: <a href="https://pdsls.dev/{item.uri}" target="_blank" class="text-[#3f87ff] wrap-anywhere">{item.uri}</a></div>
             {/if}
+            <hr class="my-2 opacity-25" />
+            <div><a href="/playground?did={profile.did}&claim={btoa(JSON.stringify(claim, null, 2))}" target="_blank">Inspect claim</a></div>
         </div>
     {/if}
 {:else}

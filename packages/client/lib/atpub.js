@@ -68,9 +68,9 @@ export class ATpubClient {
         this.ATpubUserAgent = ATpubUserAgent
     }
 
-    async loadServices(url = 'https://services.atpub.me') {
+    async loadServices(src = 'https://services.atpub.me') {
         this.services = {}
-        this.servicesBundle = await (await fetch(url)).json()
+        this.servicesBundle = typeof src === 'object' ? src : await (await fetch(src)).json()
         for (const [sid, sconf] of Object.entries(this.servicesBundle.services)) {
             this.services[sid] = new Service(sid, sconf)
         }
@@ -91,14 +91,17 @@ export class ATpubClient {
         if (!claim.proofs || claim.proofs.length === 0) {
             return { ok: null }
         }
-        const serviceId = claim.service
-        const service = this.services[serviceId]
+
+        const service = this.getService(claim.service)
+
         if (!service) {
             return { ok: false }
         }
         const proof = claim.proofs[0]
-        const res = await service.verifyProof(did, claim, proof)
-        return res
+        if (!proof) {
+            return { ok: false }
+        }
+        return service.verifyProof(did, claim, proof)
     }
 
 }

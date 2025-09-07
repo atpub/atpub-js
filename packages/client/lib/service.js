@@ -33,8 +33,10 @@ export class Service {
     }
 
     async verifyProof(did, claim, input) {
-        const finish = (ok) => ({ ok, proofMethod: input.method })
-
+        const base = { proofMethod: input.method }
+        const finish = (ok) => ({ ok, ...base  })
+        
+        //console.log(this.config, input.method)
         const params = this.config.verificationMethods[input.method]
         if (!params) {
             return finish(false)
@@ -45,7 +47,7 @@ export class Service {
         }
 
         const result = await prover({ did, claim, input, params})
-        return finish(result)
+        return Object.assign(result, base)
 
         /*const meta = { proofMethod: proof.method }
         console.log(meta)
