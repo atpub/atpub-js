@@ -56,10 +56,10 @@
 <div class="w-full">
 	<div class="mx-auto max-w-4xl pt-6 px-3 lg:px-0">
 		<div class="flex items-center h-12">
-			<div class="mr-2"><a href="/"><img src={favicon} class="inline-block h-9 invert" title="ATpub" /></a></div>
-			<div class="grow text-2xl title font-mono">
+			<div class="mr-2 shrink-0"><a href="/"><img src={favicon} class="inline-block h-9 w-9 invert" title="ATpub" /></a></div>
+			<div class="grow text-2xl title font-mono pr-1">
 				<form onsubmit={() => submitSearch()}>
-					<input type="text" class="border text-base w-92 ml-1 bg-white/5" placeholder={ctx.profile?.handle} bind:value={search} />
+					<input type="text" class="border text-base w-full sm:w-92 ml-1 bg-white/5" placeholder={ctx.profile?.handle} bind:value={search} />
 				</form>
 			</div>
 			<!--div><a href="" onclick={() => login()}>Login</a></div-->
