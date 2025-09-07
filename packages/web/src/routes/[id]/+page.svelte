@@ -1,10 +1,11 @@
 <script>
-    import { client } from '$lib/client.svelte.js'
+    import { client, ctx } from '$lib/client.svelte.js'
     import Profile from "$lib/components/Profile.svelte";
 
     let { data } = $props()
 
     let profile = $state(null)
+    ctx.profile = null
     let claims = $state(null)
     let teams = $state(null)
     let atpubAgent = $derived(new client.ATpubUserAgent(data.id))
@@ -32,6 +33,8 @@
         claims = null
         teams = null
         profile = await atpubAgent.profile()
+        ctx.profile = profile
+
         claims = await atpubAgent.claims()
         claims.forEach(async (claim) => {
             if (claim.value.proofs && claim.value.proofs.length > 0) {
