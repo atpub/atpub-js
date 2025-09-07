@@ -1,8 +1,8 @@
 <script>
-    import { serviceProviderList } from '@atpub/client'
+	import { client } from '$lib/client.svelte.js'
     import defaultServiceIcon from '../../../static/default-service-icon.svg';
 
-    let sorted = Object.entries(serviceProviderList()).sort()
+    let sorted = $derived(Object.entries(client.services).sort())
 </script>
 
 <h2 class="text-2xl">Available services</h2>

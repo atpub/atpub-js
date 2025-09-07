@@ -6,22 +6,26 @@
 	import { BrowserOAuthClient } from '@atproto/oauth-client-browser'
 	import clientMetadata from '$lib/client-metadata.json'
 
-	let client;
+	import { client } from '$lib/client.svelte.js'
+
+	//client.loadServices()
+
+	let oaclient;
 	async function login() {
 		
-		await client.signIn('tree.fail', {
+		await oaclient.signIn('tree.fail', {
 			//prompt: 'none'
 		})
 		console.log('OAuth init done')
 	}
 	async function OAuthInit () {
-		client = new BrowserOAuthClient({
+		oaclient = new BrowserOAuthClient({
 			clientMetadata,
 			handleResolver: 'https://pp0.co'
 		})
-		const res = await client.init()
+		const res = await oaclient.init()
 		console.log('session=',res)
-		return client
+		return oaclient
 	}
 
 	if (browser) {
@@ -57,7 +61,7 @@
 				• <a href="/atpub.me">@atpub.me</a> 
 			</div>
 			<div class="mt-1.5 sm:mt-0">
-				@atpub/web: <a href="/">v0.0.1</a> • services: <a href="/">2025.9.1</a>
+				@atpub/web: <a href="/">v0.0.1</a> • services: <a href="https://services.atpub.me">{client.servicesBundle.time}</a>
 			</div>
 		</div>
 	</div>

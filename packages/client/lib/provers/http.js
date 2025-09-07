@@ -29,7 +29,6 @@ export default async function ({ did, params, claim, input }) {
 
         if (params.path) {
             const res = (new JSONPathJS(params.path)).find(json)
-            console.log(did, res)
             return Boolean(res.find(x => x.includes(did)))
         }
     } else {

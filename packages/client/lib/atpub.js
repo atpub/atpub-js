@@ -1,40 +1,11 @@
 import { AtpAgent } from '@atproto/api'
 import { Service } from './service.js'
-import servicesBundle from '../../../../services/dist/index.json'
+//import servicesBundle from '../../../../services/dist/index.json'
 
 export const CLAIM_NSID = 'me.atpub.identity.claim'
 export const MEMBERSHIP_NSID = 'me.atpub.team.membership'
 
-const services = {}
-for (const [sid, sconf] of Object.entries(servicesBundle.services)) {
-    services[sid] = new Service(sid, sconf)
-}
-
-export function getService(obj) {
-    if (!obj) {
-        return false
-    }
-    if (typeof obj === 'string') {
-        return services[obj]
-    }
-    return new Service('_custom', obj, true)
-}
-
-export async function verifyClaim (did, claim) {
-    if (!claim.proofs || claim.proofs.length === 0) {
-        return { ok: null }
-    }
-    const serviceId = claim.service
-    const service = services[serviceId]
-    if (!service) {
-        return { ok: false }
-    }
-    const proof = claim.proofs[0]
-    const res = await service.verifyProof(did, claim, proof)
-    return res
-}
-
-export class AtpubAgent {
+export class ATpubUserAgent {
     constructor (actor) {
         this.actor = actor
         this.agent = new AtpAgent({ service: 'https://api.bsky.app' })
@@ -89,8 +60,45 @@ export class AtpubAgent {
     }
 }
 
-export const serviceProviders = services;
+export class ATpubClient {
 
-export function serviceProviderList () {
-    return services
+    constructor() {
+        this.services = null
+        this.servicesBundle = null
+        this.ATpubUserAgent = ATpubUserAgent
+    }
+
+    async loadServices(url = 'https://services.atpub.me') {
+        this.services = {}
+        this.servicesBundle = await (await fetch(url)).json()
+        for (const [sid, sconf] of Object.entries(this.servicesBundle.services)) {
+            this.services[sid] = new Service(sid, sconf)
+        }
+        return true
+    }
+
+    getService (obj) {
+        if (!obj) {
+            return false
+        }
+        if (typeof obj === 'string') {
+            return this.services[obj]
+        }
+        return new Service('_custom', obj, true)
+    }
+
+    async verifyClaim (did, claim) {
+        if (!claim.proofs || claim.proofs.length === 0) {
+            return { ok: null }
+        }
+        const serviceId = claim.service
+        const service = this.services[serviceId]
+        if (!service) {
+            return { ok: false }
+        }
+        const proof = claim.proofs[0]
+        const res = await service.verifyProof(did, claim, proof)
+        return res
+    }
+
 }

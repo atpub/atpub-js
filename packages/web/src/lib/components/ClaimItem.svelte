@@ -1,12 +1,12 @@
 <script>
-    import { serviceProviders, getService } from '@atpub/client'
+    import { client } from '$lib/client.svelte.js'
+
     import defaultServiceIcon from '../../../static/default-service-icon.svg'
 
     let { item } = $props()    
     let claim = $derived(item.value)
 
-    let service = $derived(getService(claim.service))
-    //let service = $derived(serviceProviders[claim.service])
+    let service = $derived(client.getService(claim.service))
     let identityUrl = $derived(service?.identityUrl(claim.identifier))
     let status = $derived(item.status || { ok: 'waiting'} )
 

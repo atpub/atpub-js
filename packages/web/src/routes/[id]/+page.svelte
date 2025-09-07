@@ -1,5 +1,5 @@
 <script>
-    import { verifyClaim, AtpubAgent } from "@atpub/client";
+    import { client } from '$lib/client.svelte.js'
     import Profile from "$lib/components/Profile.svelte";
 
     let { data } = $props()
@@ -7,7 +7,7 @@
     let profile = $state(null)
     let claims = $state(null)
     let teams = $state(null)
-    let atpubAgent = $derived(new AtpubAgent(data.id))
+    let atpubAgent = $derived(new client.ATpubUserAgent(data.id))
 
     /*let claims = $state([
         {
@@ -42,7 +42,7 @@
         })
         teams = await atpubAgent.teams()
         claims.forEach(async (claim) => {
-            claim.status = await verifyClaim(profile.did, claim.value)
+            claim.status = await client.verifyClaim(profile.did, claim.value)
         })
     })
 
