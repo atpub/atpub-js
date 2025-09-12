@@ -5,7 +5,7 @@ export class Service {
         this.id = id
         this.custom = custom
         this.config = Object.assign({
-            profileUrl: 'https://{identifier}'
+            profileUrlTemplate: 'https://{identifier}'
         }, config)
     }
 
@@ -14,11 +14,11 @@ export class Service {
     }
 
     identityUrl(identifier) {
-        return this.config.profileUrl.replace('{identifier}', identifier)
+        return this.config.profileUrlTemplate.replace('{identifier}', identifier)
     }
 
     identifierRender(str) {
-        const ident = this.config.renderFormat ? (this.config.renderFormat.replace('{identifier}', str)) : str
+        const ident = this.config.identifier?.renderFormat ? (this.config.identifier.renderFormat.replace('{identifier}', str)) : str
         if (ident.length > 48) {
             return ident.substring(0,10) + '…' + ident.substring(str.length-5)
         }
@@ -33,10 +33,15 @@ export class Service {
     }
 
     async verifyProof(did, claim, input) {
-        const base = { proofMethod: input.method }
+
+        const base = {
+            did,
+            service: claim.service,
+            method: input.method,
+            time: (new Date()).toISOString()
+        }
         const finish = (ok) => ({ ok, ...base  })
-        
-        //console.log(this.config, input.method)
+
         const params = this.config.verificationMethods[input.method]
         if (!params) {
             return finish(false)
@@ -48,23 +53,5 @@ export class Service {
 
         const result = await prover({ did, claim, input, params})
         return Object.assign(result, base)
-
-        /*const meta = { proofMethod: proof.method }
-        console.log(meta)
-
-        const methods = this.config.verificationMethods || []
-        const method = methods[proof.method]
-        if (!method) {
-            return finish(false)
-        }
-        const res = await method({ did, claim, proof })
-
-        if (res && typeof res !== "boolean") {
-            return Object.assign(res, meta)
-        } else if (res) {
-            return finish(res)
-        } else {
-            return finish(false)
-        }*/
     }
 }

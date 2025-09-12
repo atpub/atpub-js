@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton/optional/presets';
+@import '@skeletonlabs/skeleton/themes/cerberus';
+
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+
 body {
   font-family: InterVariable, system-ui, sans-serif, ui-sans-serif;
   @apply bg-[#0a0a0a] text-white;
@@ -7,8 +13,4 @@ body {
 
 a {
   @apply hover:underline;
-}
-
-input {
-  @apply border border-white/20 rounded px-2 py-1.5;
 }

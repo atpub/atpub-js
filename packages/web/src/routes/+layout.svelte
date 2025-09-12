@@ -59,7 +59,7 @@
 			<div class="mr-2 shrink-0"><a href="/"><img src={favicon} class="inline-block h-9 w-9 invert" title="ATpub" /></a></div>
 			<div class="grow text-2xl title font-mono pr-1">
 				<form onsubmit={() => submitSearch()}>
-					<input type="text" class="border text-base w-full sm:w-92 ml-1 bg-white/5" placeholder={ctx.profile?.handle} bind:value={search} />
+					<input type="text" class="input text-base w-full sm:w-92 ml-1 bg-white/5" placeholder={ctx.profile?.handle} bind:value={search} />
 				</form>
 			</div>
 			<!--div><a href="" onclick={() => login()}>Login</a></div-->
@@ -79,7 +79,7 @@
 				• <a href="/atpub.me">@atpub.me</a> 
 			</div>
 			<div class="mt-1.5 sm:mt-0">
-				@atpub/web: <a href="https://github.com/atpub/atpub-js/tree/main/packages/web">v0.0.1</a> • services: <a href="https://services.atpub.me">{client.servicesBundle?.time}</a>
+				@atpub/web: <a href="https://github.com/atpub/atpub-js/tree/main/packages/web">v0.0.1</a>
 			</div>
 		</div>
 	</div>

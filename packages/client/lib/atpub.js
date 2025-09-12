@@ -1,6 +1,11 @@
+import ATpubSpec from '../../../../spec'
 import { AtpAgent } from '@atproto/api'
 import { Service } from './service.js'
-//import servicesBundle from '../../../../services/dist/index.json'
+import Ajv from "ajv"
+import addFormats from "ajv-formats"
+import betterAjvErrors from 'better-ajv-errors'
+
+export const spec = ATpubSpec
 
 export const CLAIM_NSID = 'me.atpub.identity.claim'
 export const MEMBERSHIP_NSID = 'me.atpub.team.membership'
@@ -66,6 +71,10 @@ export class ATpubClient {
         this.services = null
         this.servicesBundle = null
         this.ATpubUserAgent = ATpubUserAgent
+        this.spec = ATpubSpec
+        this.ajv = new Ajv({ schemas: Object.values(spec.schema) })
+        addFormats(this.ajv)
+        this.validators = {}
     }
 
     async loadServices(src = 'https://services.atpub.me') {
@@ -75,6 +84,17 @@ export class ATpubClient {
             this.services[sid] = new Service(sid, sconf)
         }
         return true
+    }
+
+    validate (model = 'claim', item) {
+        if (!this.validators[model] && this.spec.schema[model]) {
+            this.validators[model] = this.ajv.compile(this.spec.schema[model])
+        }
+        const validator = this.validators[model]
+        if (!validator) {
+            return { ok: null }
+        }
+        return { ok: validator(item), errors: betterAjvErrors(this.spec.schema[model], item, validator.errors, { format: 'js' }) }
     }
 
     getService (obj) {

@@ -48,7 +48,7 @@
                 <div>Claim record: <a href="https://pdsls.dev/{item.uri}" target="_blank" class="text-[#3f87ff] wrap-anywhere">{item.uri}</a></div>
             {/if}
             <hr class="my-2 opacity-25" />
-            <div><a href="/playground?did={profile.did}&claim={btoa(JSON.stringify(claim, null, 2))}" target="_blank">Inspect claim</a></div>
+            <div><a href="/playground?did={profile.did}&claim={btoa(JSON.stringify(claim, null, 2))}">Debug Claim</a></div>
         </div>
     {/if}
 {:else}
