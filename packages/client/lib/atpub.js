@@ -1,4 +1,5 @@
-import ATpubSpec from '../../../../spec'
+//import ATpubSpec from '../../../../spec'
+import ATpubSpec from '@atpub/spec'
 import { AtpAgent } from '@atproto/api'
 import { Service } from './service.js'
 import Ajv from "ajv"
